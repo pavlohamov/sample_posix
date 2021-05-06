@@ -3,16 +3,25 @@
 #include <pthread.h>
 #include <unistd.h>
 
+static int getValue(void) {
+    static int v = 0;
+    return v++;
+}
+
 static void *routine(void *arg) {
-    for (int i = 0; i < 5; ++i) {
-        printf("loop %d\n", i);
+    const int cnt = (int)arg;
+    for (int i = 0; i < cnt; ++i) {
+        getValue();
     }
     return NULL;
 }
 
 int main(int argc, char **argv) {
-    pthread_t tid;
-    pthread_create(&tid, NULL, routine, NULL);
-    sleep(10);
+    for (int i = 0; i < 1; ++i) {
+        pthread_t tid;
+        pthread_create(&tid, NULL, routine, (void*)10000);
+    }
+    usleep(1e5);
+    printf("%d\n", getValue());
 	return 0;
 }
