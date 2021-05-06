@@ -1,0 +1,26 @@
+if (APPLE)
+    set(POSTFIX -10 )
+    set(HAVE_FLAG_SEARCH_PATHS_FIRST 0)
+    set(CMAKE_C_LINK_FLAGS "")
+    set(CMAKE_CXX_LINK_FLAGS "")
+endif()
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+set(CMAKE_ASM_COMPILER gcc${POSTFIX})
+set(CMAKE_AR ar${POSTFIX})
+set(CMAKE_RANLIB ranlib${POSTFIX})
+set(CMAKE_C_COMPILER gcc${POSTFIX})
+set(CMAKE_CXX_COMPILER g++${POSTFIX})
+set(CMAKE_LINKER g++${POSTFIX})
+set(CMAKE_OBJCOPY objcopy${POSTFIX})
+set(CMAKE_SIZE size${POSTFIX})
+
+set(TOOLCHAIN gcc)
+string(TOUPPER ${TOOLCHAIN} TOOL_U)
+
+add_compile_definitions(
+    ${TOOLCHAIN}
+    ${TOOL_U}
+)
